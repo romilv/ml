@@ -1,6 +1,6 @@
 import json
 
-reverse_hierarchy_file_data = open("AmazonBookFirstLevelHierarchy.json").read()
+reverse_hierarchy_file_data = open("./data/task1_amazon_book_first_level_hierarchy.json").read()
 reverse_hierarchy_json_data = json.loads(reverse_hierarchy_file_data)
 
 x = list()
@@ -8,7 +8,7 @@ y = list()
 
 count = 0
 
-with open('amazon_products') as f:
+with open('./data/amazon_products') as f:
     for line in f:
         if count <= 3:
             item = json.loads(line[:-2])

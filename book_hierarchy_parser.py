@@ -2,7 +2,7 @@ import json
 
 hierarchy = {}
 
-hierarchy_file_data = open("AmazonHeirarchy.json").read()
+hierarchy_file_data = open("./data/AmazonHierarchy.json").read()
 hierarchy_json_data = json.loads(hierarchy_file_data)
 
 def recursivelyAddLabel(root):
@@ -31,10 +31,10 @@ for key, label_set in hierarchy.iteritems():
     label_map[key] = n
     n += 1
 
-with open('AmazonBookFirstLevelHierarchy.json', 'w') as outfile:
+with open('./data/task1_amazon_book_first_level_hierarchy.json', 'w') as outfile:
     json.dump(reverse_hierarchy, outfile)
 outfile.close()
 
-with open('AmazonBookLabelMap.dat', 'w') as outfile:
+with open('./data/task1_amazon_book_label_map.dat', 'w') as outfile:
     json.dump(label_map, outfile)
 outfile.close()
