@@ -33,7 +33,7 @@ FILE_TO_OPEN = FILE_AMAZON_PRODUCTS
 
 with open(FILE_TO_OPEN) as f:
     for line in f:
-        if count <= 500:
+        if count <= 1000:
             # if FILE_TO_OPEN == FILE_AMAZON_PRODUCTS:
             item = json.loads(line[:-2])
             # else:

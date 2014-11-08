@@ -6,16 +6,13 @@ import math
 reverse_hierarchy_file_data = open("./data/task1_amazon_book_first_level_hierarchy.json").read()
 reverse_hierarchy_json_data = json.loads(reverse_hierarchy_file_data)
 
+word_to_index_file_data = open("./data/task2_word_to_index.json").read()
+word_to_index = json.loads(word_to_index_file_data)
+
 # list of datapoints
 x = []
 # list of classifications
 y = []
-
-
-# dictionary mapping words to numbers
-word_to_index = {}
-# list mapping index back to word
-index_to_word = []
 
 idf_counter = Counter() # idf maps in how many labels does a given word appear
 
@@ -63,17 +60,17 @@ with open(FILE_TO_OPEN) as f:
             
             words = review.lower()
             words = re.sub(r'[^a-zA-Z ]', '', words).split()
+            amazon_mapped_words = []
             # print review
             # convert words to indices
             for i, word in enumerate(words):
-                word_index = word_to_index.get(word, len(word_to_index)+1)
-                word_to_index[word] = word_index
-                words[i] = word_index
-                if len(index_to_word) < word_index:
-                    index_to_word.append(word)
+                word_index = word_to_index.get(word, -1)
+                if word_index == -1:
+                    continue
+                amazon_mapped_words.append(word_index)
             # end for
             
-            bag = Counter(words)
+            bag = Counter(amazon_mapped_words)
             
             # Make list of labels for this review
             # labels = []
@@ -110,16 +107,6 @@ for key, val in idf_counter.iteritems():
     idf = math.log( review_count / val )
     for i, review in enumerate(x):
         tfidf_list[i].append(review[key]*idf)
-
-# dump word_to_index to file
-with open('./data/task3_social_word_to_index.json', 'w') as outfile:
-    json.dump(word_to_index, outfile)
-outfile.close()
-
-# dump index_to_word to file
-with open('./data/task3_social_index_to_word.json', 'w') as outfile:
-    json.dump(index_to_word, outfile)
-outfile.close()
 
 # dump word_to_index to file
 with open('./data/task3_social_tf_dict.json', 'w') as outfile:
