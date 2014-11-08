@@ -6,39 +6,30 @@ import math
 reverse_hierarchy_file_data = open("./data/task1_amazon_book_first_level_hierarchy.json").read()
 reverse_hierarchy_json_data = json.loads(reverse_hierarchy_file_data)
 
-# list of datapoints
-x = []
-# list of classifications
-y = []
 
+x = [] # list of datapoints
+y = [] # list of classifications
 
-# dictionary mapping words to numbers
-word_to_index = {}
-# list mapping index back to word
-index_to_word = []
+word_to_index = {} # dictionary mapping words to numbers
+index_to_word = [] # list mapping index back to word
 
 idf_counter = Counter() # idf maps in how many labels does a given word appear
+review_count = 0 # number of documents
 
-# number of documents
-review_count = 0
-
+EXAMPLES_TO_PARSE = 1000
 count = 0
 
 def json_get(obj, key):
+    # safe parsing of json object
     return obj.get(key, -1) if type(obj) == dict else -1
 
 FILE_AMAZON_PRODUCTS = './data/amazon_products'
-# FILE_SOCIAL_CONVERSATIONS = './data/Social_Conversations_AmazonLabel.json'
 FILE_TO_OPEN = FILE_AMAZON_PRODUCTS
 
 with open(FILE_TO_OPEN) as f:
     for line in f:
-        if count <= 1000:
-            # if FILE_TO_OPEN == FILE_AMAZON_PRODUCTS:
-            item = json.loads(line[:-2])
-            # else:
-                # item = json.loads(line)
-                # print item
+        if count <= EXAMPLES_TO_PARSE:
+            item = json.loads(line[:-2]) # delimited by Ctrl+A
             productGroup = item["Item"]["ItemAttributes"]["ProductGroup"]
             if productGroup == "Book":
                 count += 1
@@ -61,12 +52,9 @@ with open(FILE_TO_OPEN) as f:
                     # Make list of labels for this review
                     labels = []
                     nodes = json_get(json_get(json_get(item, "Item"), "BrowseNodes"), "BrowseNode")
-                    # nodesB = json_get(json_get(json_get(item, "Item"), "Amazon_Browsenodes"), "BrowseNode")
-                    # Amazon_Browsenodes
+
                     if nodes == -1:
-                        # if nodesB == -1:
                         continue
-                        # nodes = nodesB
 
                     for node in nodes:
                         if type(node) != dict:
@@ -81,10 +69,13 @@ with open(FILE_TO_OPEN) as f:
                     review_count += 1
                     x.append(bag)
                     y.append(list(set(labels))) # trim duplicate labels
-                    # y.append(labels)
                     idf_counter.update(bag.keys())
+                # end for
+            # end if
+        # end if
         else:
             break
+    # end for
 f.close()
 
 # have idf_list[0] = 0 as a dummy since the first word is index 1
