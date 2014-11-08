@@ -1,19 +1,21 @@
 import json
 import mlpy
 import math
+import task3_normalize_y
 
 x_file_data = open("./data/task2_tfidf2d_list.json").read()
 x = json.loads(x_file_data)
 
-y_file_data = open("./data/task2_y.json").read()
-y = json.loads(y_file_data)
+# y_file_data = open("./data/task2_y.json").read()
+# y = json.loads(y_file_data)
 
 # we use 70% of x for training and 30% for testing
 train_percent = 0.7
 split_index = int(math.floor(train_percent * len(x)))
 
 # we only use the first label from each list for now
-y_trimmed = [label_list[0] for label_list in y]
+# y_trimmed = [label_list[0] for label_list in y]
+y_trimmed = task3_normalize_y.normalize_y("./data/task2_y.json")
 
 model = mlpy.LibLinear(solver_type='l2r_lr')
 model.learn(x[:split_index], y_trimmed[:split_index])
@@ -47,11 +49,11 @@ def print_matrix(matrix):
     for row in matrix:
         print row
 
-print "=========================================="
-print_matrix(train_confusion)
-print "=========================================="
-print_matrix(test_confusion)
-print "=========================================="
+# print "=========================================="
+# print_matrix(train_confusion)
+# print "=========================================="
+# print_matrix(test_confusion)
+# print "=========================================="
 
 print train_num_correct, "/", split_index
 print test_num_correct, "/", len(x) - split_index

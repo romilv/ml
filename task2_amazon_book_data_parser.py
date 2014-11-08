@@ -27,10 +27,18 @@ count = 0
 def json_get(obj, key):
     return obj.get(key, -1) if type(obj) == dict else -1
 
-with open('./data/amazon_products') as f:
+FILE_AMAZON_PRODUCTS = './data/amazon_products'
+# FILE_SOCIAL_CONVERSATIONS = './data/Social_Conversations_AmazonLabel.json'
+FILE_TO_OPEN = FILE_AMAZON_PRODUCTS
+
+with open(FILE_TO_OPEN) as f:
     for line in f:
         if count <= 500:
+            # if FILE_TO_OPEN == FILE_AMAZON_PRODUCTS:
             item = json.loads(line[:-2])
+            # else:
+                # item = json.loads(line)
+                # print item
             productGroup = item["Item"]["ItemAttributes"]["ProductGroup"]
             if productGroup == "Book":
                 count += 1
@@ -53,20 +61,27 @@ with open('./data/amazon_products') as f:
                     # Make list of labels for this review
                     labels = []
                     nodes = json_get(json_get(json_get(item, "Item"), "BrowseNodes"), "BrowseNode")
+                    # nodesB = json_get(json_get(json_get(item, "Item"), "Amazon_Browsenodes"), "BrowseNode")
+                    # Amazon_Browsenodes
                     if nodes == -1:
+                        # if nodesB == -1:
                         continue
+                        # nodes = nodesB
+
                     for node in nodes:
                         if type(node) != dict:
                             continue
                         label = reverse_hierarchy_json_data.get(node["Name"], -1)
-                        labels.append(label)
+                        if label != -1:
+                            labels.append(label)
                     
                     if not labels:
                         continue
                             
                     review_count += 1
                     x.append(bag)
-                    y.append(labels)
+                    y.append(list(set(labels))) # trim duplicate labels
+                    # y.append(labels)
                     idf_counter.update(bag.keys())
         else:
             break
