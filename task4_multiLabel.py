@@ -1,11 +1,14 @@
 import json
 import mlpy
+import numpy
 import math
 import itertools
 
+print 'TRAIN AND TEST'
+
 x_file_name = './data/task2_tfidf2d_list.json'
 x_file_data = open(x_file_name).read()
-x = json.loads(x_file_data)
+x = numpy.array(json.loads(x_file_data))
 
 y_file_name = './data/task2_y.json'
 #Get number of labels
@@ -14,10 +17,10 @@ numLabels = len(json.load(open('./data/task1_amazon_book_label_map.json')))
 #y is column major
 #Also build the correlation matrix
 arr = [0]*len(x)
-y = [list(arr) for _ in xrange(numLabels)]
-corr_y = [list([0]*numLabels) for _ in xrange(numLabels)]
+y = numpy.array([list(arr) for _ in xrange(numLabels)])
+corr_y = numpy.array([list([0]*numLabels) for _ in xrange(numLabels)])
 y_open = open(y_file_name)
-y_data = json.loads(y_open.read())
+y_data = numpy.array(json.loads(y_open.read()))
 for i,label_list in enumerate(y_data):
     for label in label_list:
         y[label][i]=1
@@ -33,7 +36,7 @@ for idx,label in enumerate(corr_y):
     tot = float(sum(label))
     if tot==0:
         continue
-    corr_y[idx] = list([l/tot for l in label])
+    corr_y[idx] = numpy.array(list([l/tot for l in label]))
 
 TRAIN_PERCENT = 0.7
 split_index = int(math.floor(TRAIN_PERCENT * len(x)))
