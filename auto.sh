@@ -22,4 +22,4 @@
 # generates tfidf file for test
 # time python task3_social_book_data_parser.py
 # run lr
-time python task4_multilabel_amzn_twtr.py
+# time python task4_multilabel_amzn_twtr.py

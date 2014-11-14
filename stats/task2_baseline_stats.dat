@@ -1,0 +1,13 @@
+
+-----
+x_feature_file = ./data/task2_tfidf2d_list.json
+y_classification_file = ./data/task2_y.json
+data size = 2793
+train_accuracy = 0.928900255754
+test_accuracy = 0.251789976134
+-----
+x_feature_file = ./data/task2_tfidf2d_list.json
+y_classification_file = ./data/task2_y.json
+data size = 1114
+train_accuracy = 0.935815147625
+test_accuracy = 0.226865671642
