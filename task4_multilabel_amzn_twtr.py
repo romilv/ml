@@ -4,11 +4,13 @@ import numpy
 import math
 import itertools
 
-print 'TRAIN AND TEST'
+print 'TRAIN ON AMZN'
 
-x_file_name = './data/task2_tfidf2d_list.json'
-x_file_data = open(x_file_name).read()
-x = numpy.array(json.loads(x_file_data))
+# train on Amazon
+
+x_amzn_file_name = './data/task2_tfidf2d_list.json'
+x_amzn_file_data = open(x_amzn_file_name).read()
+x = numpy.array(json.loads(x_amzn_file_data))
 
 y_file_name = './data/task2_y.json'
 #Get number of labels
@@ -25,7 +27,7 @@ for i,label_list in enumerate(y_data):
     for label in label_list:
         y[label][i]=1
     for item in itertools.permutations(label_list,2):
-        corr_y[item[0]][item[1]]+=1.0
+        corr_y[item[0]][item[1]]+=1
     pass
 
 # Normalize the correlation matrix
@@ -35,7 +37,8 @@ for idx,label in enumerate(corr_y):
         continue
     corr_y[idx]*=1.0/total
 
-TRAIN_PERCENT = 0.7
+
+TRAIN_PERCENT = 1
 split_index = int(math.floor(TRAIN_PERCENT * len(x)))
 
 #Train model for all labels
@@ -66,9 +69,19 @@ for i in range(split_index):
         train_err+=err
 train_err/=split_index
 
-#Test Error
+#Test Error on Twitter
+x_twtr_file_name = './data/task3_social_tfidf2d_list.json'
+x_twtr_file_data = open(x_twtr_file_name).read()
+x = numpy.array(json.loads(x_twtr_file_data))
+
+y_file_name = './data/task3_social_y.json'
+y_open = open(y_file_name)
+y_data = numpy.array(json.loads(y_open.read()))
+
+print "TEST ON TWTR"
 test_err=0
-for i in range(split_index,len(x)):
+
+for i in range(0,len(x)):
     predictions = [idx for idx,model in enumerate(models) if model.pred(x[i])==1 ]
     actual = set(y_data[i])
     if not predictions: test_err+=1.0
@@ -80,14 +93,14 @@ for i in range(split_index,len(x)):
         predict2 = max(temp)[1]
         err = sum([0.5 for label in predict2 if label not in actual])
         test_err+=err
-test_err/=(len(x)-split_index)
+test_err/=(len(x))
 
-f = open('./data/task4_correlation_mat.dat', 'w')
+f = open('./data/task4_amzn_twtr_correlation_mat.dat', 'w')
 for item in corr_y:
     f.write('\t'.join([str(z) for z in item]).expandtabs(4))
 f.close()
 
-f = open('./stats/task4_amzn_stats.dat', 'a')
+f = open('./stats/task4_amzn_twtr_stats.dat', 'a')
 f.write('Data size : ' + str(len(x)) )
 f.write("\n" + 'Training Error : ' + str(train_err*100))
 f.write("\n" + 'Test Error : ' + str(test_err*100))

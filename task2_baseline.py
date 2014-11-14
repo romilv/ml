@@ -61,7 +61,7 @@ with open('./data/task2_test_confusion.json', 'w') as outfile:
     json.dump(test_confusion, outfile)
 outfile.close()
 
-f = open('./data/task2_stats.dat', 'a')
+f = open('./stats/task2_baseline_stats.dat', 'a')
 f.write("\n-----\n" + 'x_feature_file = ' + x_file_name)
 f.write("\n" + 'y_classification_file = ' + y_file_name)
 f.write("\n" + 'data size = ' + str(len(x)) )

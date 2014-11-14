@@ -16,7 +16,7 @@ index_to_word = [] # list mapping index back to word
 idf_counter = Counter() # idf maps in how many labels does a given word appear
 review_count = 0 # number of documents
 
-EXAMPLES_TO_PARSE = 1000
+EXAMPLES_TO_PARSE = 2500
 count = 0
 
 def json_get(obj, key):
@@ -110,6 +110,6 @@ with open('./data/task2_tfidf2d_list.json', 'w') as outfile:
     json.dump(tfidf_list, outfile)
 outfile.close()
 
-f = open('./data/task2_stats.dat', 'w')
+f = open('./stats/task2_amazon_stats.dat', 'w')
 f.write('review_count = ' + str(review_count))
 f.close()

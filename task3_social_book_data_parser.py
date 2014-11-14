@@ -15,7 +15,7 @@ y = [] # list of classifications
 
 idf_counter = Counter() # idf maps in how many labels does a given word appear
 
-EXAMPLES_TO_PARSE = 1000
+EXAMPLES_TO_PARSE = 2500
 review_count = 0 # a product can have multiple reviews
 count = 0
 
@@ -87,6 +87,6 @@ with open('./data/task3_social_tfidf2d_list.json', 'w') as outfile:
     json.dump(tfidf_list, outfile)
 outfile.close()
 
-f = open('./data/task3_social_stats.dat', 'w')
+f = open('./stats/task3_social_stats.dat', 'w')
 f.write('review_count = ' + str(review_count))
 f.close()

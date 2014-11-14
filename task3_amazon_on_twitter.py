@@ -51,14 +51,14 @@ def print_matrix(matrix):
     for row in matrix:
         print row
 
-print "=========================================="
-print_matrix(train_confusion)
-print "=========================================="
-print_matrix(test_confusion)
-print "=========================================="
+# print "=========================================="
+# print_matrix(train_confusion)
+# print "=========================================="
+# print_matrix(test_confusion)
+# print "=========================================="
 
-print train_num_correct, "/", len(y_amazon)
-print test_num_correct, "/", len(y_twitter)
+# print train_num_correct, "/", len(y_amazon)
+# print test_num_correct, "/", len(y_twitter)
 
 with open('./data/task3_train_confusion.json', 'w') as outfile:
     json.dump(train_confusion, outfile)
@@ -68,7 +68,7 @@ with open('./data/task3_test_confusion.json', 'w') as outfile:
     json.dump(test_confusion, outfile)
 outfile.close()
 
-f = open('./data/task3_stats.dat', 'a')
+f = open('./stats/task3_amzn_stats.dat', 'a')
 f.write("\n" + 'train_accuracy = ' + str(float(train_num_correct) / len(y_amazon)))
 f.write("\n" + 'test_accuracy = ' + str(float(test_num_correct) / len(y_twitter)))
 f.close()
