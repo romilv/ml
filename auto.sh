@@ -18,7 +18,7 @@
 # Task 4
 # test and train on Amazon
 # generates tfidf file for train
-# time python task2_amazon_book_data_parser.py
+time python task2_amazon_book_data_parser.py
 # generates tfidf file for test
 # time python task3_social_book_data_parser.py
 # run lr

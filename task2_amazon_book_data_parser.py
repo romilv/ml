@@ -16,7 +16,7 @@ index_to_word = [] # list mapping index back to word
 idf_counter = Counter() # idf maps in how many labels does a given word appear
 review_count = 0 # number of documents
 
-EXAMPLES_TO_PARSE = 1000
+EXAMPLES_TO_PARSE = 3000
 count = 0
 
 def json_get(obj, key):
