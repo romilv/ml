@@ -168,3 +168,13 @@ corr 0.723779782186
 nocor 0.72704752721
 pred_err 0.566964833808
 ------
+
+--------
+SOLVER l2r_l2loss_svc
+C 0.2
+SIZE 1500
+
+--------
+SOLVER l2r_l2loss_svc
+C 0.2
+SIZE 1500

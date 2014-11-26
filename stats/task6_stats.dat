@@ -1,0 +1,29 @@
+--------
+SOLVER l2r_l2loss_svc
+C 0.2
+SIZE 1500
+error type TRAIN
+error n 3.0
+heap 0.295252991264
+pred_err 0.00149736902347
+------
+error type TEST
+error n 3.0
+heap 0.55133468631
+pred_err 0.632329195463
+------
+
+--------
+SOLVER l2r_l2loss_svc
+C 0.2
+SIZE 3000
+error type TRAIN
+error n 3.0
+with correlation (heap) 0.353601694918
+original pred 0.00153932707699
+------
+error type TEST
+error n 3.0
+with correlation (heap) 0.561360624509
+original pred 0.566964833808
+------

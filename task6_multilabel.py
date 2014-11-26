@@ -8,20 +8,20 @@ import heapq
 
 # AMAZON TO AMAZON
 SOLVER = 'l2r_l2loss_svc' # best l2r_l2loss_svc
-C = 0.2 # default is 1
+C = 1 # default is 1
 
-with open('./stats/task5_stats.dat', 'a') as f:
+with open('./stats/task6_stats.dat', 'a') as f:
     f.write('\n\n--------')
     f.write('\nSOLVER ' + SOLVER)
     f.write('\nC ' + str(C))
-    f.write('\nSIZE 1500')
+    f.write('\nSIZE 3000')
 f.close()
 
-x_file_name = './data/task2_tfidf2d_list1500.json'
+x_file_name = './data/task2_tfidf2d_list3000.json'
 x_file_data = open(x_file_name).read()
 x = numpy.array(json.loads(x_file_data))
 
-y_file_name = './data/task2_y1500.json'
+y_file_name = './data/task2_y3000.json'
 #Get number of labels
 numLabels = len(json.load(open('./data/task1_amazon_book_label_map.json')))
 #Generate y as a 2D array where we indicate presence/absence of each label
@@ -72,45 +72,23 @@ def error(pred_list, actual_set, n):
         return 1
     
 def evaluate_model(test_type, start, end, alpha):
-    heap_err, cor_err, nocor_err, pred_err = 0, 0, 0, 0
+    heap_err, pred_err = 0, 0
     for i in range(start,end):
         probabilities = [(1-model.pred_probability(x[i])[0], idx) for idx,model in enumerate(models)] 
         
         predictions = [idx for idx,model in enumerate(models) if model.pred(x[i])==1 ]
         probabilities.sort(reverse=True)
         probabilities =  probabilities[:10] # consider 10 with highest Pr
-        
-        augment_probs = list()
-        for tup1 in probabilities:
-            val = 0
-            for tup2 in probabilities:
-                if tup1[1] != tup2[1]:
-                    # not considering correlation matrix
-                    val += tup1[0]*tup2[0] 
 
-            augment_probs.append((val,tup1[1]))
-
-        augment_probs2 = list()
-        for tup1 in probabilities:
-            val = 0
-            for tup2 in probabilities:
-                if tup1[1] != tup2[1]:
-                    # with correlation matrix
-                    p_a_b = math.sqrt(corr_y[tup1[1]][tup2[1]] * corr_y[tup2[1]][tup1[1]])
-                    p_a_b = math.pow(p_a_b, alpha)
-                    # val += tup1[0]*tup2[0]*(corr_y[tup1[1]][tup2[1]]+corr_y[tup2[1]][tup1[1]])
-                    val += tup1[0] * tup2[0] * p_a_b
-            augment_probs2.append((val,tup1[1]))
-
-        augment_probs2.sort(reverse=True)
-        augment_probs.sort(reverse=True)
-
-        # considering tuples from correlation matrix and choosing top K
+        # considering tuples from correlation matrix and choosing top K=5
         # heap
         h = []
         pairs = itertools.combinations(probabilities,2)
         for a,b in pairs:
-            pr = a[0]*b[0]*(corr_y[a[1]][b[1]]+corr_y[b[1]][a[1]])
+            p_a_b = math.sqrt(corr_y[a[1]][b[1]] * corr_y[b[1]][a[1]])
+            p_a_b = math.pow(p_a_b, alpha)
+
+            pr = a[0]*b[0]*p_a_b
             key = (a[1], b[1])
             heapq.heappush(h, (pr, key))
         h1 = heapq.nlargest(5, h)
@@ -120,49 +98,21 @@ def evaluate_model(test_type, start, end, alpha):
             final_h.add(elem[1][1])
         final_h = list(final_h)
 
-        # split at max probability drop
-        max_diff = float('-inf')
-        split_idx = -1
-        for j in range(1, len(augment_probs)):
-            diff = augment_probs[j-1][0] - augment_probs[j][0]
-            if diff > max_diff:
-                max_diff = diff
-                split_idx = j
-        augment_probs = augment_probs[:split_idx]
-
-        max_diff = float('-inf')
-        split_idx = -1
-        for j in range(1, len(augment_probs2)):
-            diff = augment_probs2[j-1][0] - augment_probs2[j][0]
-            if diff > max_diff:
-                max_diff = diff
-                split_idx = j
-        augment_probs2 = augment_probs2[:split_idx]
-        # print "after split", augment_probs
-        cor_q = [val[1] for val in augment_probs]
-        # print "with cor", q
-        nocor_q = [val[1] for val in augment_probs2]
-        # print "no cor", q
         actual_labels = set(y_data[i])
-        # print "actual", actual_labels, "\n"
 
         n = 3.0
         heap_err += error(final_h, actual_labels, n)
-        cor_err += error(cor_q, actual_labels, n)
-        nocor_err += error(nocor_q, actual_labels, n)
         pred_err += error(predictions, actual_labels, n)
 
-    with open('./stats/task5_stats.dat', 'a') as f:
+    with open('./stats/task6_stats.dat', 'a') as f:
         f.write("\nerror type " + test_type)
         f.write("\nerror n " +  str(n))
-        f.write('\nheap ' + str(heap_err/(end-start)))
-        f.write("\ncorr " + str(cor_err/(end-start)))
-        f.write("\nnocor " + str(nocor_err/(end-start)))
-        f.write("\npred_err " + str(pred_err/(end-start)))
+        f.write('\nwith correlation (heap) ' + str(heap_err/(end-start)))
+        f.write("\noriginal pred " + str(pred_err/(end-start)))
         f.write("\n------")
     f.close()
     # end evaluate_model
 
 alpha = 1.0 # for p(a,b) to power alpha
-# evaluate_model('TRAIN', 0, split_index, alpha)
-# evaluate_model('TEST', split_index, len(x), alpha)
+evaluate_model('TRAIN', 0, split_index, alpha)
+evaluate_model('TEST', split_index, len(x), alpha)
