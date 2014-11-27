@@ -4,6 +4,8 @@ import json
 import itertools
 import numpy
 
+print "UNCOMMENT WRITE TO FILE IN LAST LINE"
+
 def json_get(obj, key):
     # safe parsing of json object
     return obj.get(key, -1) if type(obj) == dict else -1
@@ -44,8 +46,9 @@ with open(FILE_TO_OPEN) as f:
 
 					pairs = itertools.combinations(labels,2)
 					for pair in pairs:
-						corr_mat[pair[0]][pair[1]] += 1.0
-						corr_mat[pair[1]][pair[0]] += 1.0
+						if pair[0] != pair[1]:
+							corr_mat[pair[0]][pair[1]] += 1.0
+							corr_mat[pair[1]][pair[0]] += 1.0
 
 f.close()
 
@@ -59,5 +62,5 @@ for idx,label_list in enumerate(corr_mat):
     corr_mat[idx]*=1.0/total
 
 # UNCOMMENT
-print "UNCOMMENT WRITE TO FILE IN LINE BELOW"
-# numpy.save('./stats/correlation_mat', corr_mat)
+
+numpy.save('./stats/correlation_mat', corr_mat)

@@ -1,0 +1,8 @@
+
+--------
+x_feature_file = ./data/task2_tfidf2d_list500.json
+y_classification_file = ./data/task2_y500.json
+DATA_SIZE = 550
+split_index = 0.7
+train_error = 0.599492888064
+test_error = 0.875555555556

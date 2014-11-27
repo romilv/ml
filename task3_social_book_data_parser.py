@@ -10,13 +10,12 @@ reverse_hierarchy_json_data = json.loads(reverse_hierarchy_file_data)
 word_to_index_file_data = open("./data/task2_word_to_index.json").read()
 word_to_index = json.loads(word_to_index_file_data)
 
-
 x = [] # list of datapoints
 y = [] # list of classifications
 
 idf_counter = Counter() # idf maps in how many labels does a given word appear
 
-EXAMPLES_TO_PARSE = 2500
+EXAMPLES_TO_PARSE = 3000
 print EXAMPLES_TO_PARSE
 review_count = 0 # a product can have multiple reviews
 count = 0
@@ -82,15 +81,17 @@ with open('./data/task3_social_tf_dict.json', 'w') as outfile:
 outfile.close()
 
 # dump word_to_index to file
-with open('./data/task3_social_y.json', 'w') as outfile:
+file_name = './data/task3_social_y' + str(EXAMPLES_TO_PARSE) + '.json'
+with open(file_name, 'w') as outfile:
     json.dump(y, outfile)
 outfile.close()
 
-# dump idf_counter to file
-with open('./data/task3_social_tfidf2d_list.json', 'w') as outfile:
+# dump idf_counter to filed
+file_name = './data/task3_social_tfidf2d_list' + str(EXAMPLES_TO_PARSE) + '.json'
+with open(file_name, 'w') as outfile:
     json.dump(tfidf_list, outfile)
 outfile.close()
 
-f = open('./stats/task3_social_stats.dat', 'w')
-f.write('review_count = ' + str(review_count))
-f.close()
+# f = open('./stats/task3_social_stats.dat', 'w')
+# f.write('review_count = ' + str(review_count))
+# f.close()

@@ -5,18 +5,19 @@ import math
 import itertools
 import heapq
 
-
+# for size_iter in range(500, 3001, 500):
+    # SIZE = str(size_iter)
 
 # AMAZON TO AMAZON
 SOLVER = 'l2r_l2loss_svc' # best l2r_l2loss_svc
 C = 1 # default is 1
-SIZE = '2000'
+# SIZE = '2000'
 ALPHA = 0.35 # for sqrt(p(a,b)) to power alpha, between 0.3 and 0.4 gives best result
 N = 3 # 1/importance given to overprediction
 K = 4 # top K pairs from correlated probabilities
 TRAIN_PERCENT = 0.7 # split index
 
-with open('./stats/task6_stats_alpha_nosqrt.dat', 'a') as f:
+with open('./stats/task6_finalstats.dat', 'a') as f:
     f.write('\n\n--------')
     f.write('\nSOLVER ' + SOLVER)
     f.write('\nC ' + str(C))
@@ -43,6 +44,7 @@ corr_y = numpy.load('./stats/correlation_mat.npy') # load correlation matrix
 
 y_open = open(y_file_name)
 y_data = numpy.array(json.loads(y_open.read()))
+y_open.close()
 for i,label_list in enumerate(y_data):
     for label in label_list:
         y[label][i]=1
@@ -73,7 +75,6 @@ def evaluate_model(test_type, start, end, alpha):
     heap_err, pred_err = 0, 0
     for i in range(start,end):
         temp_probs = [(1-model.pred_probability(x[i])[0], idx, model.labels()) for idx,model in enumerate(models)] 
-        # tprobabilities = [(model.pred_probability(x[i]), idx, model.labels()) for idx,model in enumerate(models)]
         probabilities = []
 
         for idx in xrange(len(temp_probs)):
@@ -137,8 +138,7 @@ def evaluate_model(test_type, start, end, alpha):
         #             f.write("\n------------------")
         #         f.close()
 
-
-    with open('./stats/task6_stats_alpha_nosqrt.dat', 'a') as f:
+    with open('./stats/task6_finalstats.dat', 'a') as f:
         f.write("\nerror type " + test_type)
         f.write('\nwith correlation (heap) ' + str(heap_err/(end-start)))
         f.write("\noriginal pred " + str(pred_err/(end-start)))
