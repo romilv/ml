@@ -1,3 +1,4 @@
+import util
 import json
 import re
 from collections import Counter
@@ -16,7 +17,8 @@ index_to_word = [] # list mapping index back to word
 idf_counter = Counter() # idf maps in how many labels does a given word appear
 review_count = 0 # number of documents
 
-EXAMPLES_TO_PARSE = 3000
+EXAMPLES_TO_PARSE = 2500
+print EXAMPLES_TO_PARSE
 count = 0
 
 def json_get(obj, key):
@@ -37,6 +39,8 @@ with open(FILE_TO_OPEN) as f:
                 for review in item["Item"]["PrunedEditorialReviews"]:
                     words = review["Content"].lower()
                     words = re.sub(r'[^a-zA-Z ]', '', words).split()
+
+                    words = util.stem_array(words)                 
                     
                     # convert words to indices
                     for i, word in enumerate(words):
@@ -101,12 +105,14 @@ with open('./data/task2_tf_dict.json', 'w') as outfile:
 outfile.close()
 
 # dump word_to_index to file
-with open('./data/task2_y.json', 'w') as outfile:
+file_name = './data/task2_y' + str(EXAMPLES_TO_PARSE) + '.json'
+with open(file_name, 'w') as outfile:
     json.dump(y, outfile)
 outfile.close()
 
 # dump idf_counter to file
-with open('./data/task2_tfidf2d_list.json', 'w') as outfile:
+file_name = './data/task2_tfidf2d_list' + str(EXAMPLES_TO_PARSE) + '.json'
+with open(file_name, 'w') as outfile:
     json.dump(tfidf_list, outfile)
 outfile.close()
 

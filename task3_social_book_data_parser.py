@@ -2,6 +2,7 @@ import json
 import re
 from collections import Counter
 import math
+import util
 
 reverse_hierarchy_file_data = open("./data/task1_amazon_book_first_level_hierarchy.json").read()
 reverse_hierarchy_json_data = json.loads(reverse_hierarchy_file_data)
@@ -16,6 +17,7 @@ y = [] # list of classifications
 idf_counter = Counter() # idf maps in how many labels does a given word appear
 
 EXAMPLES_TO_PARSE = 2500
+print EXAMPLES_TO_PARSE
 review_count = 0 # a product can have multiple reviews
 count = 0
 
@@ -45,6 +47,8 @@ with open(FILE_TO_OPEN) as f:
             
             words = review.lower()
             words = re.sub(r'[^a-zA-Z ]', '', words).split()
+            words = util.stem_array(words)
+
             amazon_mapped_words = []
             
             # convert words to indices
