@@ -27,3 +27,128 @@ error n 3.0
 with correlation (heap) 0.561360624509
 original pred 0.566964833808
 ------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+error type TRAIN
+error n 3.0
+with correlation (heap) 0.396037319436
+original pred 0.00132261091939
+------
+error type TEST
+error n 3.0
+with correlation (heap) 0.593034245648
+original pred 0.565982526151
+------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+error type TRAIN
+error n 3.0
+with correlation (heap) 0.323181041388
+original pred 0.00132261091939
+------
+error type TEST
+error n 3.0
+with correlation (heap) 0.535978978828
+original pred 0.565982526151
+------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+error type TRAIN
+error n 3.0
+with correlation (heap) 0.307474939716
+original pred 0.00132261091939
+------
+error type TEST
+error n 3.0
+with correlation (heap) 0.502351508165
+original pred 0.565982526151
+------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+error type TRAIN
+error n 3.0
+with correlation (heap) 0.359565912417
+original pred 0.00132261091939
+------
+error type TEST
+error n 3.0
+with correlation (heap) 0.492572594534
+original pred 0.565982526151
+------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+error type TRAIN
+error n 3.0
+with correlation (heap) 0.278225487906
+original pred 0.0
+------
+error type TEST
+error n 3.0
+with correlation (heap) 0.636508434619
+original pred 0.745224034487
+------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+
+--------
+SOLVER l2r_lr
+C 1
+SIZE 500
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
