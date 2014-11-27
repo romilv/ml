@@ -1,0 +1,67 @@
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA 0.1
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SMOOTHING 1/100 of max
+error type TRAIN
+with correlation (heap) 0.15893406783
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.451878710377
+original pred 0.552977788003
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA 0.1
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SMOOTHING 1/100 of max
+error type TRAIN
+with correlation (heap) 0.20125182178
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.458040489119
+original pred 0.552977788003
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA 0.1
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SMOOTHING 1/100 of max
+error type TRAIN
+with correlation (heap) 0.157225748411
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.453650314455
+original pred 0.552977788003
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA 0.1
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SMOOTHING 1/100 of max
+error type TRAIN
+with correlation (heap) 0.157225748411
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.453650314455
+original pred 0.552977788003
+--------

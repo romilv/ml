@@ -1,0 +1,399 @@
+Varying alpha from 0.1 to 1 in increments of 0.1 for SIZE = 500
+alpha = 0.4 gives best results
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.1
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.159767276092
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.563901303397
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.2
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.15917898574
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.563874336675
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.3
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.156553108035
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.562929695688
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.4
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.156996439668
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.557222583984
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.5
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.1
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.159767276092
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.563901303397
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.2
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.15917898574
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.563874336675
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.3
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.156553108035
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.562929695688
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.4
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.156996439668
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.557222583984
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.5
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.158015424816
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.564134836947
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.6
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.16159873077
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.565621737272
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.7
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.16999309057
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.568398286418
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.8
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.175884742304
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.585653655158
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA 0.9
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.183766806575
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.592759896648
+original pred 0.704480395054
+--------
+
+
+
+
+
+
+
+
+
+
+
+Varying alpha from 0.1 to 1 in increments of 0.1 for SIZE = 2000
+alpha = 0.3 gives best results
+
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA 0.1
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.172103956053
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.446411677614
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA 0.2
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.169864309736
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.442598861885
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA 0.3
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.170020435025
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.441855313685
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA 0.4
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.170810130104
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.442898621917
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA 0.5
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.171582347004
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.444447366818
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA 0.6
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.175770436287
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.444746847567
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA 0.7
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.183322922753
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.448726770594
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA 0.8
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.189853074703
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.451371544019
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA 0.9
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.202856114437
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.454443981008
+original pred 0.534054218031
+--------

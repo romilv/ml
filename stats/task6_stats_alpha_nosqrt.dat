@@ -1,0 +1,320 @@
+Varying alpha from 0.1 to 1 in increments of 0.1 for SIZE = 500
+No square root in alpha's power, so alpha is reall prev alpha * 2
+alpha = 0.2 gives best results, which is 0.4 of original alpha
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.1
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.15917898574
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.563874336675
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.2
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.156996439668
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.557222583984
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.3
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.16159873077
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.565621737272
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.4
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.175884742304
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.585653655158
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.5
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.190029297554
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.597272475979
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.6
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.201535935594
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.601102840709
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.7
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.211974421483
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.603209857379
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.8
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.218283414051
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.609277404695
+original pred 0.704480395054
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.9
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.229696321393
+original pred 0.0
+--------
+error type TEST
+with correlation (heap) 0.609754636176
+original pred 0.704480395054
+--------
+
+
+
+
+
+
+
+
+Varying alpha from 0.1 to 1 in increments of 0.1 for SIZE = 500
+No square root in alpha's power, so alpha is reall prev alpha * 2
+alpha = 0.1, 0.2 gives best results, which is 0.2 - 0.4 of original alpha
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.1
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.169864309736
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.442598861885
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.2
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.170810130104
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.442898621917
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.3
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.175770436287
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.444746847567
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.4
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.189853074703
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.451371544019
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.5
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.21121219765
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.458004386145
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.6
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.228416820553
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.461104879371
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.7
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.247035729154
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.463881102416
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.8
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.264071708375
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.471513401358
+original pred 0.534054218031
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.9
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.272679110318
+original pred 0.00122755096279
+--------
+error type TEST
+with correlation (heap) 0.476425007455
+original pred 0.534054218031
+--------

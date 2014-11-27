@@ -97,11 +97,6 @@ original pred 0.565982526151
 SOLVER l2r_l2loss_svc
 C 1
 SIZE 500
-
---------
-SOLVER l2r_l2loss_svc
-C 1
-SIZE 500
 error type TRAIN
 error n 3.0
 with correlation (heap) 0.278225487906
@@ -112,43 +107,3 @@ error n 3.0
 with correlation (heap) 0.636508434619
 original pred 0.745224034487
 ------
-
---------
-SOLVER l2r_l2loss_svc
-C 1
-SIZE 500
-
---------
-SOLVER l2r_l2loss_svc
-C 1
-SIZE 500
-
---------
-SOLVER l2r_l2loss_svc
-C 1
-SIZE 500
-
---------
-SOLVER l2r_l2loss_svc
-C 1
-SIZE 500
-
---------
-SOLVER l2r_lr
-C 1
-SIZE 500
-
---------
-SOLVER l2r_l2loss_svc
-C 1
-SIZE 500
-
---------
-SOLVER l2r_l2loss_svc
-C 1
-SIZE 500
-
---------
-SOLVER l2r_l2loss_svc
-C 1
-SIZE 500
