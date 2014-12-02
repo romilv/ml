@@ -15,7 +15,7 @@ y = [] # list of classifications
 
 idf_counter = Counter() # idf maps in how many labels does a given word appear
 
-EXAMPLES_TO_PARSE = 3000
+EXAMPLES_TO_PARSE = 10000
 print EXAMPLES_TO_PARSE
 review_count = 0 # a product can have multiple reviews
 count = 0

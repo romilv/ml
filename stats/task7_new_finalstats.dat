@@ -1,0 +1,39 @@
+=========================================================
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA without SQRT 0.35
+ERROR-N 3
+PAIRS-CHOSEN-K 2
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.0399856776393
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.57255240502
+original pred 0.552977788003
+--------
+
+
+
+=========================================================
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA without SQRT 0.35
+ERROR-N 3
+PAIRS-CHOSEN-K 2
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.0407819052212
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.572804930272
+original pred 0.552977788003
+--------

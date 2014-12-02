@@ -101,3 +101,13 @@ error type TEST
 with correlation (heap) 0.445758822022
 original pred 0.552977788003
 --------
+
+
+error type TRAIN
+with correlation (heap) 0.158155818556
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.444739798741
+original pred 0.552977788003
+--------

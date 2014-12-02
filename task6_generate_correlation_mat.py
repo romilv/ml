@@ -1,5 +1,5 @@
 # write 31x31 correlation matrix for book labels for over 50K dataset
-
+import math
 import json
 import itertools
 import numpy
@@ -55,11 +55,14 @@ f.close()
 # smooth and normalize
 for idx,label_list in enumerate(corr_mat):
     smoothing_factor = max(label_list)*0.01 # 1 or (1/100) of max in row
+    row_count = sum(label_list)
     label_list += smoothing_factor
     total = sum(label_list)
     if total==0:
         continue
-    corr_mat[idx]*=1.0/total
+    log_val = math.log(2.0 + row_count, 2)
+    print log_val
+    corr_mat[idx]*=1.0*log_val/total
 
 # UNCOMMENT
 

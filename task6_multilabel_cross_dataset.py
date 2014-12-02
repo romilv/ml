@@ -5,7 +5,7 @@ import math
 import itertools
 import heapq
 
-for size_iter in range(500, 3001, 500):
+for size_iter in range(1500, 3001, 500):
     SIZE = str(size_iter)
 
     # AMAZON TO AMAZON
@@ -37,8 +37,9 @@ for size_iter in range(500, 3001, 500):
     # correlation matrix
     arr = [-1]*len(x_amzn)
     y_amzn = numpy.array([list(arr) for _ in xrange(numLabels)])
-    corr_y = numpy.load('./stats/correlation_mat.npy') # load correlation matrix
-
+    # corr_y = numpy.load('./stats/correlation_mat.npy') # load correlation matrix
+    corr_y = numpy.load('./stats/social_correlation_mat.npy') # load social correlation matrix
+    
     # y amazon
     y_file_name = './data/task2_y' + SIZE + '.json'
     y_open = open(y_file_name)
@@ -111,11 +112,18 @@ for size_iter in range(500, 3001, 500):
                 key = (a[1], b[1])
                 heapq.heappush(h, (pr, key))
             h1 = heapq.nlargest(K, h) # how many to choose in the end
-            final_h = set()
+            # final_h = set()
+            final_h = list()
             for elem in h1: # distinct
-                final_h.add(elem[1][0])
-                final_h.add(elem[1][1])
-            final_h = list(final_h)
+                if not elem[1][0] in final_h:
+                    final_h.append(elem[1][0])
+                if not elem[1][1] in final_h:  
+                    final_h.append(elem[1][1])
+            num_baseline = len(predictions)
+            before_final_h = final_h
+            final_h = list(before_final_h[:num_baseline])
+            # final_h = list(final_h)
+
 
             actual_labels = set(y_data[i])
 
