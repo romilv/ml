@@ -5,24 +5,31 @@ import math
 import itertools
 import heapq
 
-STATS_FILE = './stats/task9_corr_stats.dat'
-NUM_LABELS = 31
+STATS_FILE = './stats/task11_twtr_stats.dat'
 
 with open(STATS_FILE, 'a') as f:
     f.write('\n\n\n\n--------------------------------')
 f.close()
 
-for size_iter in range(1000, 1001, 500):
+j_range = range(5, 16)
+k_range = range(2, 9)
+alpha_range = numpy.arange(0.05, 1.05, 0.05)
+hyperparam_tuples = list(itertools.product(j_range, k_range, alpha_range))
+
+min_error = float('Inf')
+min_tuple = ()
+
+for size_iter in range(500, 501, 500):
+    
     SIZE = str(size_iter)
 
     # AMAZON TO AMAZON
     SOLVER = 'l2r_l2loss_svc' # best l2r_l2loss_svc
-    SOLVER_MC = 'mcsvm_cs' # Multi-class SVM
     C = 1 # default is 1
     # SIZE = '3000'
-    ALPHA = 0.45 # for sqrt(p(a,b)) to power alpha, between 0.3 and 0.4 gives best result
+    # ALPHA = 0.35 # for sqrt(p(a,b)) to power alpha, between 0.3 and 0.4 gives best result
     N = 3 # 1/importance given to overprediction
-    K = 5 # top K pairs from correlated probabilities
+    # K = 4 # top K pairs from correlated probabilities
     TRAIN_PERCENT = 0.7 # split index
 
     with open(STATS_FILE, 'a') as f:
@@ -36,8 +43,8 @@ for size_iter in range(1000, 1001, 500):
         # f.write('\nSPLIT-INDEX ' + str(TRAIN_PERCENT))
     f.close()
 
-    # x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json' # twitter
-    x_file_name = './data/task2_tfidf2d_list' + SIZE + '.json' # amazon
+    x_file_name = './data/task2_tfidf2d_list' + SIZE + '.json' # twitter
+    # x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json' # amazon
     x_file_data = open(x_file_name).read()
     x = numpy.array(json.loads(x_file_data))
 
@@ -50,7 +57,7 @@ for size_iter in range(1000, 1001, 500):
     arr = [-1]*len(x)
     y = numpy.array([list(arr) for _ in xrange(numLabels)])
 
-    # corr_y = numpy.load('./stats/correlation_mat.npy') # amazon
+    corr_y = numpy.load('./stats/correlation_mat.npy') # amazon
     # corr_y = numpy.load('./stats/social_correlation_mat.npy') # twitter
 
     y_open = open(y_file_name)
@@ -70,22 +77,6 @@ for size_iter in range(1000, 1001, 500):
         models.append(temp)
         pass
 
-    corr_models = [] # 31x31
-    print len(y)
-    for iter_i in range(len(y)):
-        tem = list()
-        for iter_j in range(len(y)):
-            if iter_i>=iter_j:
-                tem.append(0)
-                continue
-            tem_labels = y[iter_i] * y[iter_j]
-            mdl = mlpy.LibLinear(solver_type=SOLVER, C=C)
-            mdl.learn(x[:split_index],tem_labels[:split_index])
-            tem.append(mdl)
-        corr_models.append(tem)
-
-
-
     def error(pred_list, actual_set, n):
         # n >= 1
         correct= 0.0
@@ -98,10 +89,9 @@ for size_iter in range(1000, 1001, 500):
         else:
             return 1
         
-    def evaluate_model(test_type, start, end, alpha):
+    def evaluate_model(test_type, start, end, hyperparams):
         heap_err, pred_err = 0, 0
         for i in range(start,end):
-            #Individual probabilities
             temp_probs = [(1-model.pred_probability(x[i])[0], idx, model.labels()) for idx,model in enumerate(models)] 
             probabilities = []
 
@@ -114,24 +104,22 @@ for size_iter in range(1000, 1001, 500):
             
             predictions = [idx for idx,model in enumerate(models) if model.pred(x[i])==1 ]
             probabilities.sort(reverse=True)
-            probabilities =  probabilities[:10] # consider 10 with highest Pr
+            J = hyperparams[0]
+            probabilities =  probabilities[:J] # consider 10 with highest Pr
 
 
             # considering tuples from correlation matrix and choosing top K=4
             h = [] # heap
             pairs = itertools.combinations(probabilities,2)
             for a,b in pairs:
-                # print a,' ',b
-                corr_mdl = corr_models[min(a[1],b[1])][max(a[1],b[1])]
-                lOrder = corr_mdl.labels()
-                probs = corr_mdl.pred_probability(x[i])
-                p_a_b= probs[0] if lOrder[0]>lOrder[1] else 1-probs[0]
-                # p_a_b = math.sqrt(corr_y[a[1]][b[1]] * corr_y[b[1]][a[1]])
+                p_a_b = math.sqrt(corr_y[a[1]][b[1]] * corr_y[b[1]][a[1]])
+                alpha = hyperparams[2]
                 p_a_b = math.pow(p_a_b, alpha)
-                p_ab = math.pow(a[0]*b[0],1-alpha)
-                pr = p_ab*p_a_b
+
+                pr = a[0]*b[0]*p_a_b
                 key = (a[1], b[1])
                 heapq.heappush(h, (pr, key))
+            K = hyperparams[1]
             h1 = heapq.nlargest(K, h) # how many to choose in the end
             final_h = set()
             for elem in h1: # distinct
@@ -145,6 +133,11 @@ for size_iter in range(1000, 1001, 500):
             cur_pred_err = error(predictions, actual_labels, N)
             heap_err += cur_heap_err
             pred_err += cur_pred_err
+    
+            global min_error, min_tuple
+            if cur_heap_err < min_error:
+                min_tuple = hyperparams
+                min_error = cur_heap_err
 
             # if test_type == 'TEST':
             #     if cur_heap_err > cur_pred_err:
@@ -187,5 +180,9 @@ for size_iter in range(1000, 1001, 500):
     #     pass
     # f.close()
 
-    evaluate_model('TRAIN', 0, split_index, ALPHA)
-    evaluate_model('TEST', split_index, len(x), ALPHA)
+    for hyperparams in hyperparam_tuples:
+        evaluate_model('TRAIN', 0, split_index, hyperparams)
+        evaluate_model('TEST', split_index, len(x), hyperparams)
+
+    print min_error
+    print min_tuple

@@ -37,7 +37,7 @@ for size_iter in range(1000, 1001, 500):
     f.close()
 
     # x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json' # twitter
-    x_file_name = './data/task2_tfidf2d_list' + SIZE + '.json' # amazon
+    x_file_name = './data/reduced_tfidf' + SIZE + '.json' # amazon
     x_file_data = open(x_file_name).read()
     x = numpy.array(json.loads(x_file_data))
 
