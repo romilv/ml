@@ -5,21 +5,33 @@ import math
 import itertools
 import heapq
 
-STATS_FILE = './stats/task11_twtr_stats.dat'
+DOMAIN_IS_AMAZON = False # True = Amazon, False = Twitter
+ALL_VARIATIONS = False # True = all permutations, False = only hardcoded optimum
+
+STATS_FILE = './stats/task11' + ('' if DOMAIN_IS_AMAZON else '_social') + ('' if ALL_VARIATIONS else '_optimal') + '.dat'
 
 with open(STATS_FILE, 'a') as f:
     f.write('\n\n\n\n--------------------------------')
 f.close()
 
-j_range = range(5, 16)
-k_range = range(2, 9)
-alpha_range = numpy.arange(0.05, 1.05, 0.05)
-hyperparam_tuples = list(itertools.product(j_range, k_range, alpha_range))
+j_range = []
+k_range = []
+alpha_range = []
+hyperparam_tuples = []
 
-min_error = float('Inf')
-min_tuple = ()
+if ALL_VARIATIONS:
+    j_range = range(5, 16)
+    k_range = range(2, 9)
+    alpha_range = numpy.arange(0.05, 1.05, 0.05)
+    hyperparam_tuples = list(itertools.product(j_range, k_range, alpha_range))
+else:
+    if DOMAIN_IS_AMAZON == 'Amazon':
+        hyperparam_tuples = [(8, 5, 0.15)] # optimized for 500 TEST
+    else:
+        hyperparam_tuples = [(5, 2, 0.15)] # optimized for 500 TRAIN (scales better than 500 TEST)
 
-for size_iter in range(500, 501, 500):
+
+for size_iter in range(500, 3001, 500):
     
     SIZE = str(size_iter)
 
@@ -43,13 +55,17 @@ for size_iter in range(500, 501, 500):
         # f.write('\nSPLIT-INDEX ' + str(TRAIN_PERCENT))
     f.close()
 
-    x_file_name = './data/task2_tfidf2d_list' + SIZE + '.json' # twitter
-    # x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json' # amazon
+    if DOMAIN_IS_AMAZON:
+        x_file_name = './data/task2_tfidf2d_list' + SIZE + '.json' # amazon
+    else:
+        x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json' # twitter
     x_file_data = open(x_file_name).read()
     x = numpy.array(json.loads(x_file_data))
 
-    y_file_name = './data/task2_y' + SIZE + '.json' # amazon
-    # y_file_name = './data/task3_social_y' + SIZE + '.json' # twitter
+    if DOMAIN_IS_AMAZON:
+        y_file_name = './data/task2_y' + SIZE + '.json' # amazon
+    else:
+        y_file_name = './data/task3_social_y' + SIZE + '.json' # twitter
 
     numLabels = len(json.load(open('./data/task1_amazon_book_label_map.json'))) # get number of labels
     # generate y as a 2D array where we indicate presence/absence of each label
@@ -57,8 +73,10 @@ for size_iter in range(500, 501, 500):
     arr = [-1]*len(x)
     y = numpy.array([list(arr) for _ in xrange(numLabels)])
 
-    corr_y = numpy.load('./stats/correlation_mat.npy') # amazon
-    # corr_y = numpy.load('./stats/social_correlation_mat.npy') # twitter
+    if DOMAIN_IS_AMAZON:
+        corr_y = numpy.load('./stats/correlation_mat.npy') # amazon
+    else:
+        corr_y = numpy.load('./stats/social_correlation_mat.npy') # twitter
 
     y_open = open(y_file_name)
     y_data = numpy.array(json.loads(y_open.read()))
@@ -133,11 +151,6 @@ for size_iter in range(500, 501, 500):
             cur_pred_err = error(predictions, actual_labels, N)
             heap_err += cur_heap_err
             pred_err += cur_pred_err
-    
-            global min_error, min_tuple
-            if cur_heap_err < min_error:
-                min_tuple = hyperparams
-                min_error = cur_heap_err
 
             # if test_type == 'TEST':
             #     if cur_heap_err > cur_pred_err:
@@ -164,10 +177,18 @@ for size_iter in range(500, 501, 500):
             #             f.write("\n------------------")
             #         f.close()
 
+        heap_err /= (end-start)
+        pred_err /= (end-start)
+        
+        global min_error, min_tuple
+        if heap_err < min_error[test_type]:
+            min_tuple[test_type] = hyperparams
+            min_error[test_type] = heap_err
+
         with open(STATS_FILE, 'a') as f:
             f.write("\nerror type " + test_type)
-            f.write('\nwith correlation (heap) ' + str(heap_err/(end-start)))
-            f.write("\noriginal pred " + str(pred_err/(end-start)))
+            f.write('\nwith correlation (heap) ' + str(heap_err))
+            f.write("\noriginal pred " + str(pred_err))
             f.write("\n--------")
         f.close()
         # end evaluate_model
@@ -179,10 +200,19 @@ for size_iter in range(500, 501, 500):
     # with open('./data/task6_heap_correct.dat', 'w') as f:
     #     pass
     # f.close()
+    
+    min_error = {'TRAIN':float('Inf'), 'TEST':float('Inf')}
+    min_tuple = {'TRAIN':(), 'TEST':()}
 
     for hyperparams in hyperparam_tuples:
         evaluate_model('TRAIN', 0, split_index, hyperparams)
         evaluate_model('TEST', split_index, len(x), hyperparams)
 
-    print min_error
-    print min_tuple
+    print "----------"
+    print SIZE
+    print 'TRAIN'
+    print min_error['TRAIN']
+    print min_tuple['TRAIN']
+    print 'TEST'
+    print min_error['TEST']
+    print min_tuple['TEST']
