@@ -2,71 +2,70 @@
 
 
 
-
 --------------------------------
 
 --------
 SIZE 500
 error type TRAIN
-with correlation (heap) 0.173884718736
+with correlation (heap) 0.175098783422
 original pred 0.00186662675093
 --------
 error type TEST
-with correlation (heap) 0.536539509172
+with correlation (heap) 0.526403679113
 original pred 0.566470343491
 --------
 
 --------
 SIZE 1000
 error type TRAIN
-with correlation (heap) 0.182971726822
+with correlation (heap) 0.186548284747
 original pred 0.00184755917401
 --------
 error type TEST
-with correlation (heap) 0.465203130905
+with correlation (heap) 0.456195956034
 original pred 0.478162198106
 --------
 
 --------
 SIZE 1500
 error type TRAIN
-with correlation (heap) 0.178398120678
+with correlation (heap) 0.180212160364
 original pred 0.00283550188838
 --------
 error type TEST
-with correlation (heap) 0.462070433152
+with correlation (heap) 0.456873697801
 original pred 0.456682730813
 --------
 
 --------
 SIZE 2000
 error type TRAIN
-with correlation (heap) 0.174708212935
+with correlation (heap) 0.178344556054
 original pred 0.00271709761729
 --------
 error type TEST
-with correlation (heap) 0.434103123557
+with correlation (heap) 0.421220679762
 original pred 0.396522755404
 --------
 
 --------
 SIZE 2500
 error type TRAIN
-with correlation (heap) 0.177812276595
+with correlation (heap) 0.179844953728
 original pred 0.00368604707149
 --------
 error type TEST
-with correlation (heap) 0.426836100673
+with correlation (heap) 0.42305100414
 original pred 0.364417148316
 --------
 
 --------
 SIZE 3000
 error type TRAIN
-with correlation (heap) 0.179092399363
+with correlation (heap) 0.183828821614
 original pred 0.00407320576768
 --------
 error type TEST
-with correlation (heap) 0.423863247229
+with correlation (heap) 0.411600690414
 original pred 0.371009695887
 --------

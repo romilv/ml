@@ -28,7 +28,7 @@ else:
     if DOMAIN_IS_AMAZON == 'Amazon':
         hyperparam_tuples = [(8, 5, 0.15)] # optimized for 500 TEST
     else:
-        hyperparam_tuples = [(5, 2, 0.15)] # optimized for 500 TRAIN (scales better than 500 TEST)
+        hyperparam_tuples = [(11, 2, 0.35)] # optimized for 3000 TEST
 
 
 for size_iter in range(500, 3001, 500):
