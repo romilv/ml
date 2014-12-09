@@ -5,7 +5,7 @@ import math
 import itertools
 import heapq
 
-DOMAIN_IS_AMAZON = False # True = Amazon, False = Twitter
+DOMAIN_IS_AMAZON = True # True = Amazon, False = Twitter
 ALL_VARIATIONS = False # True = all permutations, False = only hardcoded optimum
 
 STATS_FILE = './stats/task11' + ('' if DOMAIN_IS_AMAZON else '_social') + ('' if ALL_VARIATIONS else '_optimal') + '.dat'
@@ -25,8 +25,8 @@ if ALL_VARIATIONS:
     alpha_range = numpy.arange(0.05, 1.05, 0.05)
     hyperparam_tuples = list(itertools.product(j_range, k_range, alpha_range))
 else:
-    if DOMAIN_IS_AMAZON == 'Amazon':
-        hyperparam_tuples = [(8, 5, 0.15)] # optimized for 500 TEST
+    if DOMAIN_IS_AMAZON:
+        hyperparam_tuples = [(12, 6, 0.3)] # optimized for 3000 TEST
     else:
         hyperparam_tuples = [(11, 2, 0.35)] # optimized for 3000 TEST
 
