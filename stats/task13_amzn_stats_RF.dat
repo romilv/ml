@@ -1,0 +1,83 @@
+
+
+
+
+--------------------------------
+
+--------
+SIZE 500
+error type TRAIN
+with correlation (heap) 0.165304513837
+original pred 0.0701175015461
+--------
+error type TEST
+with correlation (heap) 0.623872821836
+original pred 0.842389654943
+--------
+
+
+
+--------------------------------
+
+--------
+SIZE 3000
+error type TRAIN
+with correlation (heap) 0.164942335251
+original pred 0.0569145909648
+--------
+error type TEST
+with correlation (heap) 0.4732969122
+original pred 0.707196408767
+--------
+
+
+
+--------------------------------
+
+--------
+SIZE 2500
+error type TRAIN
+with correlation (heap) 0.168878945012
+original pred 0.0521934420932
+--------
+error type TEST
+with correlation (heap) 0.537309405619
+original pred 0.704776748943
+--------
+
+
+
+--------------------------------
+
+--------
+SIZE 1000
+error type TRAIN
+with correlation (heap) 0.182426252334
+original pred 0.061638946752
+--------
+error type TEST
+with correlation (heap) 0.592814557738
+original pred 0.740183520206
+--------
+
+--------
+SIZE 1500
+error type TRAIN
+with correlation (heap) 0.192337438448
+original pred 0.0526937697788
+--------
+error type TEST
+with correlation (heap) 0.553800123969
+original pred 0.702190608836
+--------
+
+--------
+SIZE 2000
+error type TRAIN
+with correlation (heap) 0.176434253371
+original pred 0.0637090207292
+--------
+error type TEST
+with correlation (heap) 0.496236268723
+original pred 0.6544149785
+--------

@@ -8,12 +8,9 @@ import heapq
 FILE_NAME = './stats/task12_twtr_kfold.dat'
 
 max_label = 0
-with open(FILE_NAME, 'a') as f:
-    f.write('\n\n\n\n=========================================================')
-f.close()
 
 # just running for fixed size of 3000 with k-fold of 10%
-SIZE = '1000'
+SIZE = '2000'
 x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json'
 # x_file_name = './data/task2_tfidf2d_list' + SIZE + '.json'
 x_file_data = open(x_file_name).read()
@@ -21,9 +18,6 @@ x_main = numpy.array(json.loads(x_file_data))
 
 # y_file_name = './data/task2_y' + SIZE + '.json'
 y_file_name = './data/task3_social_y' + SIZE + '.json'
-
-corr_err = 0.0
-base_err = 0.0
 
 numLabels = len(json.load(open('./data/task1_amazon_book_label_map.json'))) # get number of labels
 # generate y as a 2D array where we indicate presence/absence of each label
@@ -35,11 +29,16 @@ y_main = numpy.array([list(arr) for _ in xrange(numLabels)])
 corr_y = numpy.load('./stats/social_correlation_mat.npy') # load social correlation matrix
 
 y_open = open(y_file_name)
-y_data = numpy.array(json.loads(y_open.read()))
+y_data_main = numpy.array(json.loads(y_open.read()))
+# y_data accessed in the evaluate_model() method
 y_open.close()
-for i,label_list in enumerate(y_data):
+for i,label_list in enumerate(y_data_main):
     for label in label_list:
         y_main[label][i]=1
+
+
+corr_err = 0.0
+base_err = 0.0
 
 x_len = len(x_main)
 x_len_10 = x_len/10
@@ -53,37 +52,34 @@ for k_fold in range(x_len_10, x_len+1, x_len_10):
     K =  'len pred' # 4 # top K pairs from correlated probabilities
     TRAIN_PERCENT = 0.9 # split index
 
-    with open(FILE_NAME, 'a') as f:    
-        f.write('\n\n--------')
-        f.write('\nK-FOLD ' + str(10))
-        f.write('\nK-FOLD iteration' + str(k_fold))
-        f.write('\nSOLVER ' + SOLVER)
-        f.write('\nSIZE ' + SIZE)
-        f.write('\nALPHA without SQRT ' + str(ALPHA))
-        f.write('\nERROR-N ' + str(N))
-        f.write('\nPAIRS-CHOSEN-K ' + str(K))
-        f.write('\nSPLIT-INDEX ' + str(TRAIN_PERCENT))
-    f.close()
+    # with open(FILE_NAME, 'a') as f:    
+    #     f.write('\n\n--------')
+    #     f.write('\nK-FOLD ' + str(10))
+    #     f.write('\nK-FOLD iteration' + str(k_fold))
+    #     f.write('\nSOLVER ' + SOLVER)
+    #     f.write('\nSIZE ' + SIZE)
+    #     f.write('\nALPHA without SQRT ' + str(ALPHA))
+    #     f.write('\nERROR-N ' + str(N))
+    #     f.write('\nPAIRS-CHOSEN-K ' + str(K))
+    #     f.write('\nSPLIT-INDEX ' + str(TRAIN_PERCENT))
+    # f.close()
 
-    stop = k_fold
-    start = k_fold - x_len_10
-    print len(x_main),len(x_main[0])
-    print len(y_main),len(y_main[0])
-    # print start, stop, x_len
-    # print  y_main[:,stop:] 
-    # print y_main[:,stop:]
-    # print y_main[:,start:stop]
-    y1 = numpy.concatenate((y_main[:,:start], y_main[:,stop:]), axis=1)
-    y = numpy.concatenate((y1, y_main[:,start:stop]), axis=1)
-    x1 = numpy.concatenate((x_main[:start,:], x_main[stop:,:]), axis=0)
-    x = numpy.concatenate((x1, x_main[start:stop,:]), axis=0)
-    print len(x), len(x[0])
-    print len(y), len(y[0])
+    stop_index = k_fold
+    start_index = k_fold - x_len_10
+
+    # the problem is not with this
+    y, x, y_data = None, None, None
+
+    y1 = numpy.concatenate((y_main[:,:start_index], y_main[:,stop_index:]), axis=1)
+    y = numpy.concatenate((y1, y_main[:,start_index:stop_index]), axis=1)
+
+    x1 = numpy.concatenate((x_main[:start_index,:], x_main[stop_index:,:]), axis=0)
+    x = numpy.concatenate((x1, x_main[start_index:stop_index,:]), axis=0)
+
+    y_data1 = numpy.concatenate((y_data_main[:start_index],y_data_main[stop_index:]), axis=1)
+    y_data = numpy.concatenate((y_data1, y_data_main[start_index:stop_index]), axis=1)
 
     split_index = int(math.floor(TRAIN_PERCENT * len(x)))
-
-    # x = x_main
-    # y = y_main
 
     #Train model for all labels
     models = []
@@ -176,22 +172,24 @@ for k_fold in range(x_len_10, x_len+1, x_len_10):
             cur_pred_err = error(predictions, actual_labels, N)
             heap_err += cur_heap_err
             pred_err += cur_pred_err
+            # end for loop
+        global TRAIN_PERCENT
+        corr_err += (heap_err/(end-start))*(1-TRAIN_PERCENT)
+        base_err += (pred_err/(end-start))*(1-TRAIN_PERCENT)
 
-
-            corr_err += heap_err*(0.1)
-            base_err += pred_err*0.1
-
-        with open(FILE_NAME, 'a') as f:
-            f.write("\nerror type " + test_type)
-            f.write('\nwith correlation (heap) ' + str(heap_err/(end-start)))
-            f.write("\noriginal pred " + str(pred_err/(end-start)))
-            f.write("\n--------")
-        f.close()
+        # with open(FILE_NAME, 'a') as f:
+        #     f.write("\nerror type " + test_type)
+        #     f.write('\nwith correlation (heap) ' + str(heap_err/(end-start)))
+        #     f.write("\noriginal pred " + str(pred_err/(end-start)))
+        #     f.write("\n--------")
+        # f.close()
         # end evaluate_model
-
     evaluate_model('TRAIN', 0, split_index, ALPHA)
     evaluate_model('TEST', split_index, len(x), ALPHA)
-    break
 
-print "corr", corr_err
-print "base", base_err
+with open(FILE_NAME, 'a') as f:
+    f.write('\n\n================================')
+    f.write('\ntwitter size   ' + SIZE)
+    f.write("\ncorr error   " + str(corr_err))
+    f.write("\nbase   " + str(base_err))
+f.close()

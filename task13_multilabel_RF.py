@@ -4,19 +4,19 @@ import numpy
 import math
 import itertools
 import heapq
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import RandomForestClassifier
 
-STATS_FILE = './stats/task13_amzn_stats.dat'
+STATS_FILE = './stats/task13_amzn_stats_RF.dat'
 
 with open(STATS_FILE, 'a') as f:
     f.write('\n\n\n\n--------------------------------')
 f.close()
 
-for size_iter in range(3000, 3001, 500):
+for size_iter in range(1000, 2001, 500):
     SIZE = str(size_iter)
 
     # AMAZON TO AMAZON
-    SOLVER = 'Multinomial Naive Bayes' 
+    SOLVER = 'Random Forest Classifier' 
     ALPHA = 0.35 # for sqrt(p(a,b)) to power alpha, between 0.3 and 0.4 gives best result
     N = 3 # 1/importance given to overprediction
     K = 4 # top K pairs from correlated probabilities
@@ -63,7 +63,7 @@ for size_iter in range(3000, 3001, 500):
     models = []
     for label in y:
 ##        temp = mlpy.LibLinear(solver_type=SOLVER, C=C)
-        temp = MultinomialNB()
+        temp = RandomForestClassifier()
         temp.fit(x[:split_index],label[:split_index])
         models.append(temp)
         pass

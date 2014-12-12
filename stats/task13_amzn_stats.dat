@@ -1,0 +1,31 @@
+
+
+
+
+--------------------------------
+
+--------
+SIZE 2500
+error type TRAIN
+with correlation (heap) 0.22378687131
+original pred 0.0452079143417
+--------
+error type TEST
+with correlation (heap) 0.550425452982
+original pred 0.495854724392
+--------
+
+
+
+--------------------------------
+
+--------
+SIZE 3000
+error type TRAIN
+with correlation (heap) 0.209684676889
+original pred 0.0435379272836
+--------
+error type TEST
+with correlation (heap) 0.513423299484
+original pred 0.480249406407
+--------
