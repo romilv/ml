@@ -5,7 +5,16 @@ import math
 import itertools
 import heapq
 
-for size_iter in range(1500, 3001, 500):
+tp = 0
+tn = 0
+fp = 0
+fn = 0
+btp = 0
+btn = 0
+bfp = 0
+bfn = 0
+
+for size_iter in range(3000, 3001, 500):
     SIZE = str(size_iter)
 
     # AMAZON TO AMAZON
@@ -126,11 +135,24 @@ for size_iter in range(1500, 3001, 500):
 
 
             actual_labels = set(y_data[i])
+            base_labels = set(predictions)
+            predicts_labels = set(final_h)
 
             cur_heap_err = error(final_h, actual_labels, N)
             cur_pred_err = error(predictions, actual_labels, N)
             heap_err += cur_heap_err
             pred_err += cur_pred_err
+
+            if test_type == 'TEST TWITTER 3000':
+                global tp, tn, fp, fn,btp, btn, bfp, bfn
+                tp += len(predicts_labels.intersection(actual_labels))
+                fp += len(predicts_labels.difference(actual_labels))
+                fn += len(actual_labels.difference(predicts_labels))
+                tn += (31 - len(actual_labels.union(predicts_labels)))
+                btp += len(base_labels.intersection(actual_labels))
+                bfp += len(base_labels.difference(actual_labels))
+                bfn += len(actual_labels.difference(base_labels))
+                btn += (31 - len(actual_labels.union(base_labels)))
 
         with open('./stats/task6_social_stats.dat', 'a') as f:
             f.write('\n--------')
@@ -143,3 +165,13 @@ for size_iter in range(1500, 3001, 500):
 
     evaluate_model('TRAIN AMAZON', x_amzn, y_amzn_data, 0, len(x_amzn), ALPHA)
     evaluate_model('TEST TWITTER 3000', x_twtr, y_twtr_data, 0, len(x_twtr), ALPHA)
+
+print 'tn', tn
+print 'tp', tp
+print 'fp', fp
+print 'fn', fn
+print'------------'
+print 'btn', btn
+print 'btp', btp
+print 'bfp', bfp
+print 'bfn', bfn

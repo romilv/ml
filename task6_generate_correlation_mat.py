@@ -15,12 +15,14 @@ reverse_hierarchy_json_data = json.loads(reverse_hierarchy_file_data)
 
 FILE_TO_OPEN = './data/amazon_products'
 EXAMPLES_TO_PARSE = 100000
+# EXAMPLES_TO_PARSE = 5000
 
 numLabels = len(json.load(open('./data/task1_amazon_book_label_map.json')))
 
 arr = [0.0] * numLabels
 corr_mat = numpy.array([list(arr) for _ in range(numLabels)])
 count = 0
+l_sum_list = []
 with open(FILE_TO_OPEN) as f:
 	for line in f:
 		if count <= EXAMPLES_TO_PARSE:
@@ -43,27 +45,34 @@ with open(FILE_TO_OPEN) as f:
 
 					if not labels:
 					    continue
-
-					pairs = itertools.combinations(labels,2)
-					for pair in pairs:
-						if pair[0] != pair[1]:
-							corr_mat[pair[0]][pair[1]] += 1.0
-							corr_mat[pair[1]][pair[0]] += 1.0
+					labels = list(set(labels))
+					l_sum_list.append(len(labels))
+					# pairs = itertools.combinations(labels,2)
+					# for pair in pairs:
+					# 	if pair[0] != pair[1]:
+					# 		corr_mat[pair[0]][pair[1]] += 1.0
+					# 		corr_mat[pair[1]][pair[0]] += 1.0
 
 f.close()
 
+f = open('./stats/variance_amazon.csv', 'w')
+for elem in l_sum_list:
+	# print str(elem)
+	# if type(elem) == type([]):
+	f.write(str(elem) + '\n')
+f.close()
 # smooth and normalize
-for idx,label_list in enumerate(corr_mat):
-    smoothing_factor = max(label_list)*0.01 # 1 or (1/100) of max in row
-    row_count = sum(label_list)
-    label_list += smoothing_factor
-    total = sum(label_list)
-    if total==0:
-        continue
-    log_val = math.log(2.0 + row_count, 2)
-    print log_val
-    corr_mat[idx]*=1.0*log_val/total
+# for idx,label_list in enumerate(corr_mat):
+#     smoothing_factor = max(label_list)*0.01 # 1 or (1/100) of max in row
+#     row_count = sum(label_list)
+#     label_list += smoothing_factor
+#     total = sum(label_list)
+#     if total==0:
+#         continue
+#     log_val = math.log(2.0 + row_count, 2)
+#     print log_val
+#     corr_mat[idx]*=1.0*log_val/total
 
 # UNCOMMENT
 
-numpy.save('./stats/correlation_mat', corr_mat)
+# numpy.save('./stats/correlation_mat', corr_mat)

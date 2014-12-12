@@ -1,0 +1,38 @@
+twitter 3000
+tn 25716
+tp 1124
+fp 433
+fn 658
+------------
+btn 25767
+btp 1124
+bfp 382
+bfn 658
+
+precision
+recall
+F1
+
+
+amazon 3000
+tn 25315
+tp 2041
+fp 2354
+fn 980
+------------
+btn 26964
+btp 1447
+bfp 705
+bfn 1574
+
+
+cross 3000
+tn 74209
+tp 1976
+fp 12833
+fn 4013
+------------
+btn 63689
+btp 2223
+bfp 23353
+bfn 3766

@@ -427,3 +427,41 @@ error type TEST TWITTER 3000
 with correlation (heap) 0.765928317904
 original pred 0.782497163552
 --------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+AMAZON SIZE 3000
+TWITTER SIZE 3000
+ALPHA without SQRT 0.35
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+--------
+error type TRAIN AMAZON
+with correlation (heap) 0.039395013233
+original pred 0.00119116531753
+--------
+--------
+error type TEST TWITTER 3000
+with correlation (heap) 0.765928317904
+original pred 0.782497163552
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+AMAZON SIZE 3000
+TWITTER SIZE 3000
+ALPHA without SQRT 0.35
+ERROR-N 3
+PAIRS-CHOSEN-K 4
+--------
+error type TRAIN AMAZON
+with correlation (heap) 0.039395013233
+original pred 0.00119116531753
+--------
+--------
+error type TEST TWITTER 3000
+with correlation (heap) 0.765928317904
+original pred 0.782497163552
+--------

@@ -24,6 +24,7 @@ arr = [0.0] * numLabels
 corr_mat = numpy.array([list(arr) for _ in range(numLabels)])
 count = 0
 l_sum = 0
+l_sum_list = []
 with open(FILE_TO_OPEN) as f:
     for line in f:
         if count <= EXAMPLES_TO_PARSE:
@@ -42,29 +43,35 @@ with open(FILE_TO_OPEN) as f:
             count += 1
             labels = list(set(labels))
             l_sum += len(labels)
-            pairs = itertools.combinations(labels,2)
-            for pair in pairs:
-            	if pair[0] != pair[1]:
-            		corr_mat[pair[0]][pair[1]] += 1.0
-            		corr_mat[pair[1]][pair[0]] += 1.0
+            l_sum_list.append(labels)
+            # pairs = itertools.combinations(labels,2)
+            # for pair in pairs:
+            # 	if pair[0] != pair[1]:
+            # 		corr_mat[pair[0]][pair[1]] += 1.0
+            # 		corr_mat[pair[1]][pair[0]] += 1.0
 print count
 print "l_sum", l_sum, (1.0*l_sum)/count
 f.close()
 
+f = open('./stats/variance.csv', 'w')
+for elem in l_sum_list:
+    f.write(str(len(elem)) + '\n')
+f.close()
+
 # smooth and normalize
-for idx,label_list in enumerate(corr_mat):
-    smoothing_factor = max(label_list)*0.01 # 1 or (1/100) of max in row
-    if smoothing_factor == 0:
-        smoothing_factor = 1
-    # row_count = sum(label_list)
-    label_list += smoothing_factor
-    total = sum(label_list)
-    if total==0:
-        continue
-    # log_val = math.log(2.0 + row_count, 2)
-    # print log_val
-    corr_mat[idx]*=1.0/total
-    # corr_mat[idx]*=1.0*log_val/total
+# for idx,label_list in enumerate(corr_mat):
+#     smoothing_factor = max(label_list)*0.01 # 1 or (1/100) of max in row
+#     if smoothing_factor == 0:
+#         smoothing_factor = 1
+#     # row_count = sum(label_list)
+#     label_list += smoothing_factor
+#     total = sum(label_list)
+#     if total==0:
+#         continue
+#     # log_val = math.log(2.0 + row_count, 2)
+#     # print log_val
+#     corr_mat[idx]*=1.0/total
+#     # corr_mat[idx]*=1.0*log_val/total
 
 # UNCOMMENT
-numpy.save('./stats/social_correlation_mat', corr_mat)
+# numpy.save('./stats/social_correlation_mat', corr_mat)

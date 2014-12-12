@@ -1543,3 +1543,219 @@ error type TEST
 with correlation (heap) 0.382162986226
 original pred 0.371009695887
 --------
+
+=========================================================
+
+using variable K
+
+
+
+
+=========================================================
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00186662675093
+original pred 0.00186662675093
+--------
+error type TEST
+with correlation (heap) 0.566470343491
+original pred 0.566470343491
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 1000
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00184755917401
+original pred 0.00184755917401
+--------
+error type TEST
+with correlation (heap) 0.474979712669
+original pred 0.478162198106
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 1500
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00283550188838
+original pred 0.00283550188838
+--------
+error type TEST
+with correlation (heap) 0.455381807689
+original pred 0.456682730813
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2000
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00271709761729
+original pred 0.00271709761729
+--------
+error type TEST
+with correlation (heap) 0.395675971235
+original pred 0.396522755404
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 2500
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00368604707149
+original pred 0.00368604707149
+--------
+error type TEST
+with correlation (heap) 0.361775002757
+original pred 0.364417148316
+--------
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00436799034817
+original pred 0.00407320576768
+--------
+error type TEST
+with correlation (heap) 0.371312320286
+original pred 0.371009695887
+--------
+
+
+
+=========================================================
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 6000
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00616521310773
+original pred 0.00544414243391
+--------
+error type TEST
+with correlation (heap) 0.304567672793
+original pred 0.30513517671
+--------
+
+
+
+=========================================================
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 10000
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00892139993338
+original pred 0.00771327929579
+--------
+error type TEST
+with correlation (heap) 0.258183667777
+original pred 0.260004263019
+--------
+
+
+
+=========================================================
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 500
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00186662675093
+original pred 0.00186662675093
+--------
+error type TEST
+with correlation (heap) 0.566470343491
+original pred 0.566470343491
+--------
+
+
+
+=========================================================
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00436799034817
+original pred 0.00407320576768
+--------
+error type TEST
+with correlation (heap) 0.371312320286
+original pred 0.371009695887
+--------
+
+
+
+=========================================================
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA without SQRT 0.25
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.00436799034817
+original pred 0.00407320576768
+--------
+error type TEST
+with correlation (heap) 0.371312320286
+original pred 0.371009695887
+--------
