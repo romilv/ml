@@ -81,3 +81,21 @@ error type TEST
 with correlation (heap) 0.496236268723
 original pred 0.6544149785
 --------
+
+
+
+--------------------------------
+
+--------
+SIZE 1000
+alpha 0.3
+J 12
+K 6
+error type TRAIN
+with correlation (heap) 0.216013995692
+original pred 0.0598013832271
+--------
+error type TEST
+with correlation (heap) 0.584604715642
+original pred 0.756203715759
+--------

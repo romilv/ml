@@ -14,33 +14,32 @@ btn = 0
 bfp = 0
 bfn = 0
 
-# STATS_FILE = './stats/task7_twtr_stats.dat'
-STATS_FILE = './stats/others.dat'
+STATS_FILE = './stats/task7_amzn_stats.dat'
+# STATS_FILE = './stats/others.dat'
 
 with open(STATS_FILE, 'a') as f:
-    f.write('\n\n\n\n--------------------------------')
+    f.write('\n\n--------------------------------')
 f.close()
 
-for size_iter in range(3000, 3001, 500):
+for size_iter in range(2500, 3001, 500):
     SIZE = str(size_iter)
 
     # AMAZON TO AMAZON
     SOLVER = 'l2r_l2loss_svc' # best l2r_l2loss_svc
     C = 1 # default is 1
     # SIZE = '3000'
-    ALPHA = 0.35 # for sqrt(p(a,b)) to power alpha, between 0.3 and 0.4 gives best result
+    ALPHA = 0.3 # for sqrt(p(a,b)) to power alpha, between 0.3 and 0.4 gives best result
     N = 3 # 1/importance given to overprediction
-    K = 4 # top K pairs from correlated probabilities
+    K = 6 # top K pairs from correlated probabilities
+    J = 12
     TRAIN_PERCENT = 0.7 # split index
 
     with open(STATS_FILE, 'a') as f:
         f.write('\n\n--------')
-        # f.write('\nSOLVER ' + SOLVER)
-        # f.write('\nC ' + str(C))
-        f.write('\nSIZE ' + SIZE)
-        # f.write('\nALPHA without SQRT ' + str(ALPHA))
-        # f.write('\nERROR-N ' + str(N))
-        # f.write('\nPAIRS-CHOSEN-K ' + str(K))
+        f.write('\nAmazon\nSIZE ' + SIZE)
+        f.write('\nALPHA ' + str(ALPHA))
+        f.write('\nK ' + str(K))
+        f.write('\nJ ' + str(J))
         # f.write('\nSPLIT-INDEX ' + str(TRAIN_PERCENT))
     f.close()
 
@@ -105,7 +104,7 @@ for size_iter in range(3000, 3001, 500):
             
             predictions = [idx for idx,model in enumerate(models) if model.pred(x[i])==1 ]
             probabilities.sort(reverse=True)
-            probabilities =  probabilities[:10] # consider 10 with highest Pr
+            probabilities =  probabilities[:J] # consider 10 with highest Pr
 
 
             # considering tuples from correlation matrix and choosing top K=4

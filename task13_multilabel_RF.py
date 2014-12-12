@@ -12,25 +12,21 @@ with open(STATS_FILE, 'a') as f:
     f.write('\n\n\n\n--------------------------------')
 f.close()
 
-for size_iter in range(1000, 2001, 500):
+for size_iter in range(1000, 1001, 500):
     SIZE = str(size_iter)
 
     # AMAZON TO AMAZON
     SOLVER = 'Random Forest Classifier' 
-    ALPHA = 0.35 # for sqrt(p(a,b)) to power alpha, between 0.3 and 0.4 gives best result
+    ALPHA = 0.3
     N = 3 # 1/importance given to overprediction
-    K = 4 # top K pairs from correlated probabilities
+    K = 6 # top K pairs from correlated probabilities
+    J = 12
     TRAIN_PERCENT = 0.7 # split index
 
     with open(STATS_FILE, 'a') as f:
         f.write('\n\n--------')
-        # f.write('\nSOLVER ' + SOLVER)
-        # f.write('\nC ' + str(C))
         f.write('\nSIZE ' + SIZE)
-        # f.write('\nALPHA without SQRT ' + str(ALPHA))
-        # f.write('\nERROR-N ' + str(N))
-        # f.write('\nPAIRS-CHOSEN-K ' + str(K))
-        # f.write('\nSPLIT-INDEX ' + str(TRAIN_PERCENT))
+        f.write('\nalpha ' + str(ALPHA) + '\nJ ' + str(J) + '\nK ' + str(K))
     f.close()
 
 ##    x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json' # twitter
@@ -100,7 +96,7 @@ for size_iter in range(1000, 2001, 500):
             predictions = [idx for idx,model in enumerate(models) if model.predict(x[i])==1 ]
 ##            print probabilities
             probabilities.sort(reverse=True)
-            probabilities =  probabilities[:10] # consider 10 with highest Pr
+            probabilities =  probabilities[:J] # consider 10 with highest Pr
 
 
             # considering tuples from correlation matrix and choosing top K=4
@@ -127,31 +123,6 @@ for size_iter in range(1000, 2001, 500):
             heap_err += cur_heap_err
             pred_err += cur_pred_err
 
-            # if test_type == 'TEST':
-            #     if cur_heap_err > cur_pred_err:
-            #         with open('./data/task6_heap_debug.dat', 'a') as f:
-            #             f.write("\n\n------------------")
-            #             f.write('\nheap err ' + str(cur_heap_err))
-            #             f.write('\npred err ' + str(cur_pred_err))
-            #             f.write('\nheap ' + str(final_h))
-            #             f.write('\npred ' + str(predictions))
-            #             f.write('\nactual ' + str(actual_labels))
-            #             f.write('\nprobs ' + str(probabilities))
-            #             # f.write('\ninput ' + str(temp_probs))
-            #             f.write("\n------------------")
-            #         f.close()
-            #     else:
-            #         with open('./data/task6_heap_correct.dat', 'a') as f:
-            #             f.write("\n\n------------------")
-            #             f.write('\nheap err ' + str(cur_heap_err))
-            #             f.write('\npred err ' + str(cur_pred_err))
-            #             f.write('\nheap ' + str(final_h))
-            #             f.write('\npred ' + str(predictions))
-            #             f.write('\nactual ' + str(actual_labels))
-            #             f.write('\nprobs ' + str(probabilities))
-            #             f.write("\n------------------")
-            #         f.close()
-
         with open(STATS_FILE, 'a') as f:
             f.write("\nerror type " + test_type)
             f.write('\nwith correlation (heap) ' + str(heap_err/(end-start)))
@@ -159,14 +130,6 @@ for size_iter in range(1000, 2001, 500):
             f.write("\n--------")
         f.close()
         # end evaluate_model
-
-
-    # with open('./data/task6_heap_debug.dat', 'w') as f:
-    #     pass
-    # f.close()
-    # with open('./data/task6_heap_correct.dat', 'w') as f:
-    #     pass
-    # f.close()
 
     evaluate_model('TRAIN', 0, split_index, ALPHA)
     evaluate_model('TEST', split_index, len(x), ALPHA)

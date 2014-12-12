@@ -6,7 +6,7 @@ import itertools
 import heapq
 from sklearn.naive_bayes import MultinomialNB
 
-STATS_FILE = './stats/task13_amzn_stats.dat'
+STATS_FILE = './stats/task13_amzn_stats_NB.dat'
 
 with open(STATS_FILE, 'a') as f:
     f.write('\n\n\n\n--------------------------------')

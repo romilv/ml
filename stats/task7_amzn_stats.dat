@@ -1,0 +1,97 @@
+
+
+--------------------------------
+
+--------
+Amazon
+SIZE 2500
+ALPHA 0.3
+K 6
+J 12
+error type TRAIN
+with correlation (heap) 0.203517096574
+original pred 0.00130371577646
+--------
+error type TEST
+with correlation (heap) 0.475849554149
+original pred 0.585684923953
+--------
+
+--------
+Amazon
+SIZE 3000
+ALPHA 0.3
+K 6
+J 12
+error type TRAIN
+with correlation (heap) 0.193629873358
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.424056275701
+original pred 0.552977788003
+--------
+
+--------------------------------
+
+--------
+Amazon
+SIZE 2500
+ALPHA 0.3
+K 5
+J 12
+error type TRAIN
+with correlation (heap) 0.187573633908
+original pred 0.00130371577646
+--------
+error type TEST
+with correlation (heap) 0.483053673129
+original pred 0.585684923953
+--------
+
+--------
+Amazon
+SIZE 3000
+ALPHA 0.3
+K 5
+J 12
+error type TRAIN
+with correlation (heap) 0.17881884627
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.430900286148
+original pred 0.552977788003
+--------
+
+--------------------------------
+
+--------
+Amazon
+SIZE 2500
+ALPHA 0.3
+K 4
+J 12
+error type TRAIN
+with correlation (heap) 0.164728891072
+original pred 0.00130371577646
+--------
+error type TEST
+with correlation (heap) 0.493945193445
+original pred 0.585684923953
+--------
+
+--------
+Amazon
+SIZE 3000
+ALPHA 0.3
+K 4
+J 12
+error type TRAIN
+with correlation (heap) 0.158464181653
+original pred 0.000747868411913
+--------
+error type TEST
+with correlation (heap) 0.443194491689
+original pred 0.552977788003
+--------

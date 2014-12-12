@@ -5,28 +5,49 @@ import math
 import itertools
 import heapq
 
-FILE_NAME = './stats/task12_twtr_kfold.dat'
+
 
 max_label = 0
 
+DOMAIN_IS_AMAZON = True # True = Amazon, False = Twitter
+
 # just running for fixed size of 3000 with k-fold of 10%
 SIZE = '2000'
-x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json'
-# x_file_name = './data/task2_tfidf2d_list' + SIZE + '.json'
+FILE_NAME = ''
+x_file_name = ''
+y_file_name = ''
+corr_y = None
+ALPHA = 0.0
+K = 0
+J = 0
+
+if DOMAIN_IS_AMAZON:
+    FILE_NAME = './stats/task12_amzn_kfold.dat'
+    x_file_name = './data/task2_tfidf2d_list' + SIZE + '.json'
+    y_file_name = './data/task2_y' + SIZE + '.json'
+    corr_y = numpy.load('./stats/correlation_mat.npy')
+    ALPHA = 0.3
+    K = 6
+    J = 12
+
+else:    
+    FILE_NAME = './stats/task12_twtr_kfold.dat'
+    x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json'
+    y_file_name = './data/task3_social_y' + SIZE + '.json'
+    corr_y = numpy.load('./stats/social_correlation_mat.npy')
+    ALPHA = 0.25
+    K = None
+    J = 10
+    # end else
+
 x_file_data = open(x_file_name).read()
 x_main = numpy.array(json.loads(x_file_data))
-
-# y_file_name = './data/task2_y' + SIZE + '.json'
-y_file_name = './data/task3_social_y' + SIZE + '.json'
 
 numLabels = len(json.load(open('./data/task1_amazon_book_label_map.json'))) # get number of labels
 # generate y as a 2D array where we indicate presence/absence of each label
 #y is column major
 arr = [-1]*len(x_main)
 y_main = numpy.array([list(arr) for _ in xrange(numLabels)])
-
-# corr_y = numpy.load('./stats/correlation_mat.npy') # load correlation matrix
-corr_y = numpy.load('./stats/social_correlation_mat.npy') # load social correlation matrix
 
 y_open = open(y_file_name)
 y_data_main = numpy.array(json.loads(y_open.read()))
@@ -47,22 +68,9 @@ for k_fold in range(x_len_10, x_len+1, x_len_10):
     SOLVER = 'l2r_l2loss_svc' # best l2r_l2loss_svc
     C = 1 # default is 1
     
-    ALPHA = 0.25 # for sqrt(p(a,b)) to power alpha, between 0.3 and 0.4 gives best result
     N = 3 # 1/importance given to overprediction
-    K =  'len pred' # 4 # top K pairs from correlated probabilities
-    TRAIN_PERCENT = 0.9 # split index
 
-    # with open(FILE_NAME, 'a') as f:    
-    #     f.write('\n\n--------')
-    #     f.write('\nK-FOLD ' + str(10))
-    #     f.write('\nK-FOLD iteration' + str(k_fold))
-    #     f.write('\nSOLVER ' + SOLVER)
-    #     f.write('\nSIZE ' + SIZE)
-    #     f.write('\nALPHA without SQRT ' + str(ALPHA))
-    #     f.write('\nERROR-N ' + str(N))
-    #     f.write('\nPAIRS-CHOSEN-K ' + str(K))
-    #     f.write('\nSPLIT-INDEX ' + str(TRAIN_PERCENT))
-    # f.close()
+    TRAIN_PERCENT = 0.9 # split index
 
     stop_index = k_fold
     start_index = k_fold - x_len_10
@@ -126,11 +134,7 @@ for k_fold in range(x_len_10, x_len+1, x_len_10):
             elif len(predictions) == 1:
                 final_h = predictions
             else:
-                
-                probabilities =  probabilities[:10] # consider 10 with highest Pr
-
-
-                # considering tuples from correlation matrix and choosing top K=4
+                probabilities =  probabilities[:J] # consider J highest Pr
                 
                 pairs = itertools.combinations(probabilities,2)
                 for a,b in pairs:
@@ -141,9 +145,11 @@ for k_fold in range(x_len_10, x_len+1, x_len_10):
                     pr = a[0]*b[0]*p_a_b
                     key = (a[1], b[1])
                     heapq.heappush(h, (pr, key))
-                K = len(predictions)
-                # k_map = [0,0,1,2,3,4,4,4,4,4,4]
-                # K = k_map[len(predictions)]
+
+                global K
+                if not DOMAIN_IS_AMAZON:
+                    K = len(predictions)
+                    # end else
                 h1 = heapq.nlargest(K, h) # how many to choose in the end
                 
                 for elem in h1: # distinct
@@ -156,14 +162,6 @@ for k_fold in range(x_len_10, x_len+1, x_len_10):
                 final_h = list(before_final_h[:max(num_baseline,1)])
                 # final_h = list(set(final_h))
             # end else
-            
-            top_four_pairs = list()
-            h2 = heapq.nlargest(4, h)
-            for elem in h2: # distinct
-                if not elem[1][0] in top_four_pairs:
-                    top_four_pairs.append(elem[1][0])
-                if not elem[1][1] in top_four_pairs:  
-                    top_four_pairs.append(elem[1][1])
 
             actual_labels = set(y_data[i])
 
@@ -177,19 +175,15 @@ for k_fold in range(x_len_10, x_len+1, x_len_10):
         corr_err += (heap_err/(end-start))*(1-TRAIN_PERCENT)
         base_err += (pred_err/(end-start))*(1-TRAIN_PERCENT)
 
-        # with open(FILE_NAME, 'a') as f:
-        #     f.write("\nerror type " + test_type)
-        #     f.write('\nwith correlation (heap) ' + str(heap_err/(end-start)))
-        #     f.write("\noriginal pred " + str(pred_err/(end-start)))
-        #     f.write("\n--------")
-        # f.close()
-        # end evaluate_model
     evaluate_model('TRAIN', 0, split_index, ALPHA)
     evaluate_model('TEST', split_index, len(x), ALPHA)
 
 with open(FILE_NAME, 'a') as f:
     f.write('\n\n================================')
-    f.write('\ntwitter size   ' + SIZE)
+    f.write('\nK ' + str(K))
+    f.write('\nJ ' + str(J))
+    f.write('\nALPHA' + str(ALPHA))
+    f.write('\nsize   ' + SIZE)
     f.write("\ncorr error   " + str(corr_err))
     f.write("\nbase   " + str(base_err))
 f.close()
