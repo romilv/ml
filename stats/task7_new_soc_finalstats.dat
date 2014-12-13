@@ -1759,3 +1759,24 @@ error type TEST
 with correlation (heap) 0.371312320286
 original pred 0.371009695887
 --------
+
+
+
+=========================================================
+
+--------
+SOLVER l2r_l2loss_svc
+C 1
+SIZE 3000
+ALPHA without SQRT 0.35
+ERROR-N 3
+PAIRS-CHOSEN-K len pred
+SPLIT-INDEX 0.7
+error type TRAIN
+with correlation (heap) 0.0109245583935
+original pred 0.00407320576768
+--------
+error type TEST
+with correlation (heap) 0.371984222166
+original pred 0.371009695887
+--------

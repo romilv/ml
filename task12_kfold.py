@@ -44,7 +44,7 @@ else:
     # end else
 
 if WRITE_DETAILS:
-    with open(DETAIL_FILE, 'a'):
+    with open(DETAIL_FILE, 'a') as f:
         f.write('\n\n------------------------')
     f.close()
 
@@ -68,9 +68,11 @@ for i,label_list in enumerate(y_data_main):
 
 corr_err = 0.0
 base_err = 0.0
+    
+TRAIN_PERCENT = 2.0/3 # split index
 
 x_len = len(x_main)
-x_len_10 = x_len/10
+x_len_10 = int(x_len * (1 - TRAIN_PERCENT))
 
 for k_fold in range(x_len_10, x_len+1, x_len_10):
     SOLVER = 'l2r_l2loss_svc' # best l2r_l2loss_svc
@@ -78,7 +80,6 @@ for k_fold in range(x_len_10, x_len+1, x_len_10):
     
     N = 3 # 1/importance given to overprediction
 
-    TRAIN_PERCENT = 0.9 # split index
 
     stop_index = k_fold
     start_index = k_fold - x_len_10
