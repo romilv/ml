@@ -10,9 +10,10 @@ import heapq
 max_label = 0
 
 DOMAIN_IS_AMAZON = True # True = Amazon, False = Twitter
-
+WRITE_DETAILS = True
 # just running for fixed size of 3000 with k-fold of 10%
-SIZE = '2000'
+SIZE = '1000'
+DETAIL_FILE = ''
 FILE_NAME = ''
 x_file_name = ''
 y_file_name = ''
@@ -23,6 +24,7 @@ J = 0
 
 if DOMAIN_IS_AMAZON:
     FILE_NAME = './stats/task12_amzn_kfold.dat'
+    DETAIL_FILE = './stats/task12_amzn_kfold_detail.dat'
     x_file_name = './data/task2_tfidf2d_list' + SIZE + '.json'
     y_file_name = './data/task2_y' + SIZE + '.json'
     corr_y = numpy.load('./stats/correlation_mat.npy')
@@ -32,6 +34,7 @@ if DOMAIN_IS_AMAZON:
 
 else:    
     FILE_NAME = './stats/task12_twtr_kfold.dat'
+    DETAIL_FILE = './stats/task12_twtr_kfold_detail.dat'
     x_file_name = './data/task3_social_tfidf2d_list' + SIZE + '.json'
     y_file_name = './data/task3_social_y' + SIZE + '.json'
     corr_y = numpy.load('./stats/social_correlation_mat.npy')
@@ -39,6 +42,11 @@ else:
     K = None
     J = 10
     # end else
+
+if WRITE_DETAILS:
+    with open(DETAIL_FILE, 'a'):
+        f.write('\n\n------------------------')
+    f.close()
 
 x_file_data = open(x_file_name).read()
 x_main = numpy.array(json.loads(x_file_data))
@@ -174,6 +182,12 @@ for k_fold in range(x_len_10, x_len+1, x_len_10):
         global TRAIN_PERCENT
         corr_err += (heap_err/(end-start))*(1-TRAIN_PERCENT)
         base_err += (pred_err/(end-start))*(1-TRAIN_PERCENT)
+
+        if test_type == 'TEST' and WRITE_DETAILS:
+            with open(DETAIL_FILE, 'a') as f:
+                f.write('\n\ncorr ' + str((heap_err/(end-start))*(1-TRAIN_PERCENT)))
+                f.write('\nbase ' + str((pred_err/(end-start))*(1-TRAIN_PERCENT)))
+            f.close()
 
     evaluate_model('TRAIN', 0, split_index, ALPHA)
     evaluate_model('TEST', split_index, len(x), ALPHA)
